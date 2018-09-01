@@ -1,0 +1,126 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="header.html"></head>
+  <div class="contant">
+    <div class="wrapper row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10 row">
+        <div class="col-md-9 leftSection">
+          <ul class="articles">
+            <div th:each="article,lstat:*{articles}">
+              <li class="blogAticle">
+                <div class="articleHeader">
+                  <p><a href="/article/$!{vo.article.id}" th:text="*{article.title}"></a></p>
+                </div>
+                <div class="articleContent">
+                  <p th:text="*{article.describes}"></p>
+                </div>
+                <div class="articleFooter">
+                  <ul>
+                    <li><i class="fa fa-calendar" aria-hidden="true"></i><span th:text="${#dates.format(article.createddate, 'yyyy-MM-dd')}"></span></li>
+                    <li><i class="fa fa-eye" aria-hidden="true"></i><span>$!{vo.clickCount}</span></li>
+                    <li><i class="fa fa-list" aria-hidden="true"></i><span>[[${article.category}]]</span></li>
+                    <li><i class="fa fa-tags" aria-hidden="true"></i>
+                      #foreach($tag in $vo.tags)
+                      <span>$!{tag.name}</span>
+                      #end
+                    </li>
+                    <li class="readMore"><a href="/article/$!{vo.article.id}">read more</a></li>
+                  </ul>
+                </div>
+              </li>
+            </div>
+          </ul>
+          <!--用于分页跳转-->
+          <form id="form" action="/index">
+            <input type="hidden" id="page" name="pageNumber" value="1">
+          </form>
+          <!--传值，并跳转的js-->
+          <script th:inline="javascript">
+            function jump(pageNumber) {
+                if(pageNumber==1){
+                    $("#form").submit();
+                }
+                if(pageNumber==-1){
+                    document.getElementById("page").value=[[${pageInfo.prePage}]];
+                    $("#form").submit();
+                }
+                if(pageNumber==2){
+                    document.getElementById("page").value=[[${pageInfo.nextPage}]];
+                    document.getElementById("form").submit();
+                }
+                if(pageNumber==3){
+                    document.getElementById("page").value=[[${pageInfo.pages}]];
+                    document.getElementById("form").submit();
+
+                }
+                if(pageNumber==4){
+                    document.getElementById("page").value=[[${pageInfo.pageNum}]];
+                    $("#form").submit();
+                }
+
+            }
+          </script>
+          
+          
+          <div class="paginationWapper">
+            <ul class="pagination">
+              <li>
+                <a href="javascript:jump(1)">&laquo;</a>
+              </li>
+              <li >
+                <a th:if="*{pageInfo.pageNum > 1}" href="javascript:jump(-1)">&lsaquo;</a>
+                <a th:if="*{pageInfo.pageNum == 1}" href="javascript:jump(4)">&lsaquo;</a>
+              </li>
+              <li>
+                <a href="" th:text="*{pageInfo.pageNum}"></a>
+              </li>
+              <li>
+                <a th:if="*{pageInfo.pageNum < pageInfo.pages}" href="javascript:jump(2)">&rsaquo;</a>
+                <a th:if="*{pageInfo.pageNum==pageInfo.pages}" href="javascript:jump(4)">&rsaquo;</a>
+              </li>
+              <li >
+                <a href="javascript:jump(3)">&raquo;</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-3 rightSection">
+          <div class="side categories">
+            <div class="header"><i class="fa fa-list-ul" aria-hidden="true"></i><span>Categories</span></div>
+            <ul>
+              <li><a href="/category/Java?pageId=1">Java</a><span>($!{categoryCount.Java})</span></li>
+              <li><a href="/category/Web?pageId=1">Web</a><span>($!{categoryCount.Web})</span></li>
+              <li><a href="/category/Linux?pageId=1">Linux</a><span>($!{categoryCount.Linux})</span></li>
+              <li><a href="/category/分布式系统?pageId=1">分布式系统</a><span>($!{categoryCount.Distributed})</span></li>
+              <li><a href="/category/数据库?pageId=1">数据库</a><span>($!{categoryCount.Database})</span></li>
+              <li><a href="/category/算法?pageId=1">算法</a><span>($!{categoryCount.Algorithm})</span></li>
+              <li><a href="/category/其它?pageId=1">其它</a><span>($!{categoryCount.Other})</span></li>
+            </ul>
+          </div>
+          <div class="side tags">
+            <div class="header"><i class="fa fa-tags" aria-hidden="true"></i><span>Tags</span></div>
+            <div id="tagCloud">
+              #foreach($tag in $tags)
+              <a href="/tag/$!{tag.id}?pageId=1" rel="$!{tag.count}">$!{tag.name}</a>
+              #end
+            </div>
+          </div>
+          <div class="side hotArticles">
+            <div class="header"><i class="fa fa-file-text" aria-hidden="true"></i><span>HotArticles</span></div>
+            <ul>
+              #foreach($hotArticle in $hotArticles)
+                #set($str=$!hotArticle.title)
+                #if($str.length()>19)
+                  #set($str=$str.substring(0,19))
+                  <li><a href="/article/$!{hotArticle.id}">$str...</a></li>
+                #else
+                  <li><a href="/article/$!{hotArticle.id}">$str</a></li>
+                #end
+              #end
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<head th:include="footer.html"></head>

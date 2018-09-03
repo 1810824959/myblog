@@ -5,11 +5,11 @@ import java.util.Date;
 public class LoginTicket {
     private Integer id;
 
-    private Date expired;
-
     private Integer userId;
 
     private String ticket;
+
+    private Date expired;
 
     private Integer status;
 
@@ -19,14 +19,6 @@ public class LoginTicket {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Date getExpired() {
-        return expired;
-    }
-
-    public void setExpired(Date expired) {
-        this.expired = expired;
     }
 
     public Integer getUserId() {
@@ -43,6 +35,14 @@ public class LoginTicket {
 
     public void setTicket(String ticket) {
         this.ticket = ticket == null ? null : ticket.trim();
+    }
+
+    public Date getExpired() {
+        return expired;
+    }
+
+    public void setExpired(Date expired) {
+        this.expired = expired;
     }
 
     public Integer getStatus() {

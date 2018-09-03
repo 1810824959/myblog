@@ -1,7 +1,7 @@
 package com.liyang.blog.pojo;
 
 public class User {
-    private int id;
+    private Integer id;
 
     private String name;
 
@@ -9,9 +9,9 @@ public class User {
 
     private String salt;
 
-    private String role;
-
     private String headUrl;
+
+    private String role;
 
     public Integer getId() {
         return id;
@@ -45,19 +45,19 @@ public class User {
         this.salt = salt == null ? null : salt.trim();
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role == null ? null : role.trim();
-    }
-
     public String getHeadUrl() {
         return headUrl;
     }
 
     public void setHeadUrl(String headUrl) {
         this.headUrl = headUrl == null ? null : headUrl.trim();
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role == null ? null : role.trim();
     }
 }

@@ -15,8 +15,10 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMapper articleMapper;
 
     @Override
-    public void addArticle(Article article) {
+    public int addArticle(Article article) {
         articleMapper.insert(article);
+        return article.getId();
+
     }
 
     @Override
@@ -25,5 +27,13 @@ public class ArticleServiceImpl implements ArticleService {
         example.createCriteria();
         List<Article> list = articleMapper.selectByExample(example);
         return list;
+    }
+
+    @Override
+    public Article getArticleById(int id) {
+        ArticleExample example = new ArticleExample();
+        example.createCriteria().andIdEqualTo(id);
+        Article article = articleMapper.selectByPrimaryKey(id);
+        return article;
     }
 }

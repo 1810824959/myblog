@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class LoginTicketExample {
+public class CommentExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public LoginTicketExample() {
+    public CommentExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -225,133 +225,123 @@ public class LoginTicketExample {
             return (Criteria) this;
         }
 
-        public Criteria andTicketIsNull() {
-            addCriterion("ticket is null");
+        public Criteria andArticleIdIsNull() {
+            addCriterion("article_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andTicketIsNotNull() {
-            addCriterion("ticket is not null");
+        public Criteria andArticleIdIsNotNull() {
+            addCriterion("article_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTicketEqualTo(String value) {
-            addCriterion("ticket =", value, "ticket");
+        public Criteria andArticleIdEqualTo(Integer value) {
+            addCriterion("article_id =", value, "articleId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketNotEqualTo(String value) {
-            addCriterion("ticket <>", value, "ticket");
+        public Criteria andArticleIdNotEqualTo(Integer value) {
+            addCriterion("article_id <>", value, "articleId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketGreaterThan(String value) {
-            addCriterion("ticket >", value, "ticket");
+        public Criteria andArticleIdGreaterThan(Integer value) {
+            addCriterion("article_id >", value, "articleId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketGreaterThanOrEqualTo(String value) {
-            addCriterion("ticket >=", value, "ticket");
+        public Criteria andArticleIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("article_id >=", value, "articleId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketLessThan(String value) {
-            addCriterion("ticket <", value, "ticket");
+        public Criteria andArticleIdLessThan(Integer value) {
+            addCriterion("article_id <", value, "articleId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketLessThanOrEqualTo(String value) {
-            addCriterion("ticket <=", value, "ticket");
+        public Criteria andArticleIdLessThanOrEqualTo(Integer value) {
+            addCriterion("article_id <=", value, "articleId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketLike(String value) {
-            addCriterion("ticket like", value, "ticket");
+        public Criteria andArticleIdIn(List<Integer> values) {
+            addCriterion("article_id in", values, "articleId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketNotLike(String value) {
-            addCriterion("ticket not like", value, "ticket");
+        public Criteria andArticleIdNotIn(List<Integer> values) {
+            addCriterion("article_id not in", values, "articleId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketIn(List<String> values) {
-            addCriterion("ticket in", values, "ticket");
+        public Criteria andArticleIdBetween(Integer value1, Integer value2) {
+            addCriterion("article_id between", value1, value2, "articleId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketNotIn(List<String> values) {
-            addCriterion("ticket not in", values, "ticket");
+        public Criteria andArticleIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("article_id not between", value1, value2, "articleId");
             return (Criteria) this;
         }
 
-        public Criteria andTicketBetween(String value1, String value2) {
-            addCriterion("ticket between", value1, value2, "ticket");
+        public Criteria andCreatedDateIsNull() {
+            addCriterion("created_date is null");
             return (Criteria) this;
         }
 
-        public Criteria andTicketNotBetween(String value1, String value2) {
-            addCriterion("ticket not between", value1, value2, "ticket");
+        public Criteria andCreatedDateIsNotNull() {
+            addCriterion("created_date is not null");
             return (Criteria) this;
         }
 
-        public Criteria andExpiredIsNull() {
-            addCriterion("expired is null");
+        public Criteria andCreatedDateEqualTo(Date value) {
+            addCriterion("created_date =", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andExpiredIsNotNull() {
-            addCriterion("expired is not null");
+        public Criteria andCreatedDateNotEqualTo(Date value) {
+            addCriterion("created_date <>", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andExpiredEqualTo(Date value) {
-            addCriterion("expired =", value, "expired");
+        public Criteria andCreatedDateGreaterThan(Date value) {
+            addCriterion("created_date >", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andExpiredNotEqualTo(Date value) {
-            addCriterion("expired <>", value, "expired");
+        public Criteria andCreatedDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("created_date >=", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andExpiredGreaterThan(Date value) {
-            addCriterion("expired >", value, "expired");
+        public Criteria andCreatedDateLessThan(Date value) {
+            addCriterion("created_date <", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andExpiredGreaterThanOrEqualTo(Date value) {
-            addCriterion("expired >=", value, "expired");
+        public Criteria andCreatedDateLessThanOrEqualTo(Date value) {
+            addCriterion("created_date <=", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andExpiredLessThan(Date value) {
-            addCriterion("expired <", value, "expired");
+        public Criteria andCreatedDateIn(List<Date> values) {
+            addCriterion("created_date in", values, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andExpiredLessThanOrEqualTo(Date value) {
-            addCriterion("expired <=", value, "expired");
+        public Criteria andCreatedDateNotIn(List<Date> values) {
+            addCriterion("created_date not in", values, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andExpiredIn(List<Date> values) {
-            addCriterion("expired in", values, "expired");
+        public Criteria andCreatedDateBetween(Date value1, Date value2) {
+            addCriterion("created_date between", value1, value2, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andExpiredNotIn(List<Date> values) {
-            addCriterion("expired not in", values, "expired");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpiredBetween(Date value1, Date value2) {
-            addCriterion("expired between", value1, value2, "expired");
-            return (Criteria) this;
-        }
-
-        public Criteria andExpiredNotBetween(Date value1, Date value2) {
-            addCriterion("expired not between", value1, value2, "expired");
+        public Criteria andCreatedDateNotBetween(Date value1, Date value2) {
+            addCriterion("created_date not between", value1, value2, "createdDate");
             return (Criteria) this;
         }
 

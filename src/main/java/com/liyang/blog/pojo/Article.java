@@ -9,13 +9,13 @@ public class Article {
 
     private String describes;
 
-    private String content;
+    private Date createdDate;
 
-    private Date createddate;
-
-    private Integer commentcount;
+    private Integer commentCount;
 
     private String category;
+
+    private String content;
 
     public Integer getId() {
         return id;
@@ -41,28 +41,20 @@ public class Article {
         this.describes = describes == null ? null : describes.trim();
     }
 
-    public String getContent() {
-        return content;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public Date getCreateddate() {
-        return createddate;
+    public Integer getCommentCount() {
+        return commentCount;
     }
 
-    public void setCreateddate(Date createddate) {
-        this.createddate = createddate;
-    }
-
-    public Integer getCommentcount() {
-        return commentcount;
-    }
-
-    public void setCommentcount(Integer commentcount) {
-        this.commentcount = commentcount;
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
     }
 
     public String getCategory() {
@@ -71,5 +63,13 @@ public class Article {
 
     public void setCategory(String category) {
         this.category = category == null ? null : category.trim();
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 }

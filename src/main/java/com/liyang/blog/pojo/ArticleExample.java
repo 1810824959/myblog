@@ -2,7 +2,6 @@ package com.liyang.blog.pojo;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class ArticleExample {
@@ -104,32 +103,6 @@ public class ArticleExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andIdIsNull() {
@@ -332,193 +305,123 @@ public class ArticleExample {
             return (Criteria) this;
         }
 
-        public Criteria andContentIsNull() {
-            addCriterion("content is null");
+        public Criteria andCreatedDateIsNull() {
+            addCriterion("created_date is null");
             return (Criteria) this;
         }
 
-        public Criteria andContentIsNotNull() {
-            addCriterion("content is not null");
+        public Criteria andCreatedDateIsNotNull() {
+            addCriterion("created_date is not null");
             return (Criteria) this;
         }
 
-        public Criteria andContentEqualTo(String value) {
-            addCriterion("content =", value, "content");
+        public Criteria andCreatedDateEqualTo(Date value) {
+            addCriterion("created_date =", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andContentNotEqualTo(String value) {
-            addCriterion("content <>", value, "content");
+        public Criteria andCreatedDateNotEqualTo(Date value) {
+            addCriterion("created_date <>", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andContentGreaterThan(String value) {
-            addCriterion("content >", value, "content");
+        public Criteria andCreatedDateGreaterThan(Date value) {
+            addCriterion("created_date >", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andContentGreaterThanOrEqualTo(String value) {
-            addCriterion("content >=", value, "content");
+        public Criteria andCreatedDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("created_date >=", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andContentLessThan(String value) {
-            addCriterion("content <", value, "content");
+        public Criteria andCreatedDateLessThan(Date value) {
+            addCriterion("created_date <", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andContentLessThanOrEqualTo(String value) {
-            addCriterion("content <=", value, "content");
+        public Criteria andCreatedDateLessThanOrEqualTo(Date value) {
+            addCriterion("created_date <=", value, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andContentLike(String value) {
-            addCriterion("content like", value, "content");
+        public Criteria andCreatedDateIn(List<Date> values) {
+            addCriterion("created_date in", values, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andContentNotLike(String value) {
-            addCriterion("content not like", value, "content");
+        public Criteria andCreatedDateNotIn(List<Date> values) {
+            addCriterion("created_date not in", values, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andContentIn(List<String> values) {
-            addCriterion("content in", values, "content");
+        public Criteria andCreatedDateBetween(Date value1, Date value2) {
+            addCriterion("created_date between", value1, value2, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andContentNotIn(List<String> values) {
-            addCriterion("content not in", values, "content");
+        public Criteria andCreatedDateNotBetween(Date value1, Date value2) {
+            addCriterion("created_date not between", value1, value2, "createdDate");
             return (Criteria) this;
         }
 
-        public Criteria andContentBetween(String value1, String value2) {
-            addCriterion("content between", value1, value2, "content");
+        public Criteria andCommentCountIsNull() {
+            addCriterion("comment_count is null");
             return (Criteria) this;
         }
 
-        public Criteria andContentNotBetween(String value1, String value2) {
-            addCriterion("content not between", value1, value2, "content");
+        public Criteria andCommentCountIsNotNull() {
+            addCriterion("comment_count is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCreateddateIsNull() {
-            addCriterion("createdDate is null");
+        public Criteria andCommentCountEqualTo(Integer value) {
+            addCriterion("comment_count =", value, "commentCount");
             return (Criteria) this;
         }
 
-        public Criteria andCreateddateIsNotNull() {
-            addCriterion("createdDate is not null");
+        public Criteria andCommentCountNotEqualTo(Integer value) {
+            addCriterion("comment_count <>", value, "commentCount");
             return (Criteria) this;
         }
 
-        public Criteria andCreateddateEqualTo(Date value) {
-            addCriterionForJDBCDate("createdDate =", value, "createddate");
+        public Criteria andCommentCountGreaterThan(Integer value) {
+            addCriterion("comment_count >", value, "commentCount");
             return (Criteria) this;
         }
 
-        public Criteria andCreateddateNotEqualTo(Date value) {
-            addCriterionForJDBCDate("createdDate <>", value, "createddate");
+        public Criteria andCommentCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("comment_count >=", value, "commentCount");
             return (Criteria) this;
         }
 
-        public Criteria andCreateddateGreaterThan(Date value) {
-            addCriterionForJDBCDate("createdDate >", value, "createddate");
+        public Criteria andCommentCountLessThan(Integer value) {
+            addCriterion("comment_count <", value, "commentCount");
             return (Criteria) this;
         }
 
-        public Criteria andCreateddateGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("createdDate >=", value, "createddate");
+        public Criteria andCommentCountLessThanOrEqualTo(Integer value) {
+            addCriterion("comment_count <=", value, "commentCount");
             return (Criteria) this;
         }
 
-        public Criteria andCreateddateLessThan(Date value) {
-            addCriterionForJDBCDate("createdDate <", value, "createddate");
+        public Criteria andCommentCountIn(List<Integer> values) {
+            addCriterion("comment_count in", values, "commentCount");
             return (Criteria) this;
         }
 
-        public Criteria andCreateddateLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("createdDate <=", value, "createddate");
+        public Criteria andCommentCountNotIn(List<Integer> values) {
+            addCriterion("comment_count not in", values, "commentCount");
             return (Criteria) this;
         }
 
-        public Criteria andCreateddateIn(List<Date> values) {
-            addCriterionForJDBCDate("createdDate in", values, "createddate");
+        public Criteria andCommentCountBetween(Integer value1, Integer value2) {
+            addCriterion("comment_count between", value1, value2, "commentCount");
             return (Criteria) this;
         }
 
-        public Criteria andCreateddateNotIn(List<Date> values) {
-            addCriterionForJDBCDate("createdDate not in", values, "createddate");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateddateBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("createdDate between", value1, value2, "createddate");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateddateNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("createdDate not between", value1, value2, "createddate");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentcountIsNull() {
-            addCriterion("commentCount is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentcountIsNotNull() {
-            addCriterion("commentCount is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentcountEqualTo(Integer value) {
-            addCriterion("commentCount =", value, "commentcount");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentcountNotEqualTo(Integer value) {
-            addCriterion("commentCount <>", value, "commentcount");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentcountGreaterThan(Integer value) {
-            addCriterion("commentCount >", value, "commentcount");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentcountGreaterThanOrEqualTo(Integer value) {
-            addCriterion("commentCount >=", value, "commentcount");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentcountLessThan(Integer value) {
-            addCriterion("commentCount <", value, "commentcount");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentcountLessThanOrEqualTo(Integer value) {
-            addCriterion("commentCount <=", value, "commentcount");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentcountIn(List<Integer> values) {
-            addCriterion("commentCount in", values, "commentcount");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentcountNotIn(List<Integer> values) {
-            addCriterion("commentCount not in", values, "commentcount");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentcountBetween(Integer value1, Integer value2) {
-            addCriterion("commentCount between", value1, value2, "commentcount");
-            return (Criteria) this;
-        }
-
-        public Criteria andCommentcountNotBetween(Integer value1, Integer value2) {
-            addCriterion("commentCount not between", value1, value2, "commentcount");
+        public Criteria andCommentCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("comment_count not between", value1, value2, "commentCount");
             return (Criteria) this;
         }
 

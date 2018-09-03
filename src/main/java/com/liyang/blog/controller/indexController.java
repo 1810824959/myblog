@@ -6,7 +6,9 @@ import com.github.pagehelper.PageInfo;
 import com.liyang.blog.pojo.Article;
 import com.liyang.blog.pojo.HostHolder;
 import com.liyang.blog.pojo.User;
+import com.liyang.blog.pojo.Item;
 import com.liyang.blog.service.ArticleService;
+import com.liyang.blog.service.TagService;
 import com.liyang.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +26,9 @@ import java.util.Map;
 public class indexController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TagService tagService;
 
     @Autowired
     private ArticleService articleService;
@@ -34,10 +40,26 @@ public class indexController {
     public String index(Model model,
                         @RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber){
         PageHelper.startPage(pageNumber,4);
-        List<Article> list = articleService.findAllArticle();
+        List<Item> wholeArticle = new ArrayList<>();
+        List<Article> list = articleService.findAllArticle(); //article List
+//        ArrayList<Object> articleTags = new ArrayList<>();  //每个article一个元素，内含tagname List
+//        for (Article article:list){
+//            List<String> tagByArticleId = tagService.getTagByArticleId(article.getId());
+//            articleTags.add(tagByArticleId);
+//        }
+
+        for (Article article:list){
+            List<String> tagByArticleId = tagService.getTagByArticleId(article.getId());
+            Item item = new Item();
+            item.set("article",article);
+            item.set("tagName",tagByArticleId);
+            wholeArticle.add(item);
+        }
+
         PageInfo<Article> pageInfo = new PageInfo<Article>(list);
         //文章列表
-        model.addAttribute("articles",list);
+//        model.addAttribute("articles",list);
+        model.addAttribute("wholeArticle",wholeArticle);
         model.addAttribute("pageInfo",pageInfo);
         User user = hostHolder.getUser();
         if (user!=null){

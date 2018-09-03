@@ -6,25 +6,24 @@
       <div class="col-md-10 row">
         <div class="col-md-9 leftSection">
           <ul class="articles">
-            <div th:each="article,lstat:*{articles}">
+            <div th:each="article,lstat:*{wholeArticle}">
               <li class="blogAticle">
                 <div class="articleHeader">
-                  <p><a th:href="@{'/article/'+${article.id}}" th:text="*{article.title}"></a></p>
+                  <p><a th:href="@{'/article/'+${article.get('article').id}}" th:text="${article.get('article').title}"></a></p>
                 </div>
                 <div class="articleContent">
-                  <p th:text="*{article.describes}"></p>
+                  <p th:text="${article.get('article').describes}"></p>
                 </div>
                 <div class="articleFooter">
                   <ul>
-                    <li><i class="fa fa-calendar" aria-hidden="true"></i><span th:text="${#dates.format(article.createdDate, 'yyyy-MM-dd')}"></span></li>
+                    <li><i class="fa fa-calendar" aria-hidden="true"></i><span th:text="${#dates.format(article.get('article').createdDate, 'yyyy-MM-dd')}"></span></li>
                     <li><i class="fa fa-eye" aria-hidden="true"></i><span>$!{vo.clickCount}</span></li>
-                    <li><i class="fa fa-list" aria-hidden="true"></i><span>[[${article.category}]]</span></li>
+                    <li><i class="fa fa-list" aria-hidden="true"></i><span th:text="${article.get('article').category}"></span></li>
                     <li><i class="fa fa-tags" aria-hidden="true"></i>
-                      #foreach($tag in $vo.tags)
-                      <span>$!{tag.name}</span>
-                      #end
+                          <span th:each="tag,lstat:${article.get('tagName')}" th:text="${tag}+'&nbsp&nbsp&nbsp'">
+                          </span>
                     </li>
-                    <li class="readMore"><a th:href="@{'/article/'+${article.id}}">read more</a></li>
+                    <li class="readMore"><a th:href="@{'/article/'+${article.get('article').id}}">read more</a></li>
                   </ul>
                 </div>
               </li>

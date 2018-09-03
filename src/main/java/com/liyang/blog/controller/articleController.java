@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class articleController {
@@ -70,7 +71,10 @@ public class articleController {
     public String showArticle(@PathVariable("id") int id,
                               Model model){
         Article articleById = articleService.getArticleById(id);
+
+        List<String> tagNames = tagService.getTagByArticleId(articleById.getId());
         model.addAttribute("article",articleById);
+        model.addAttribute("tagNames",tagNames);
 
         User user = hostHolder.getUser();
         if (user!=null){

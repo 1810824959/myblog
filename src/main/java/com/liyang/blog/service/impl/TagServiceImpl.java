@@ -3,12 +3,14 @@ package com.liyang.blog.service.impl;
 import com.liyang.blog.mapper.ArticleTagMapper;
 import com.liyang.blog.mapper.TagMapper;
 import com.liyang.blog.pojo.ArticleTag;
+import com.liyang.blog.pojo.ArticleTagExample;
 import com.liyang.blog.pojo.Tag;
 import com.liyang.blog.pojo.TagExample;
 import com.liyang.blog.service.TagService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -52,5 +54,19 @@ public class TagServiceImpl implements TagService {
             return tags.get(0);
         }
         return null;
+    }
+
+    @Override
+    public List<String> getTagByArticleId(int articleId) {
+        ArticleTagExample example = new ArticleTagExample();
+        example.createCriteria().andArticleIdEqualTo(articleId);
+        List<ArticleTag> articleTags = articleTagMapper.selectByExample(example);
+
+        ArrayList<String> tagName = new ArrayList<>();
+        for(ArticleTag articleTag:articleTags){
+            Tag tag = tagMapper.selectByPrimaryKey(articleTag.getTagId());
+            tagName.add(tag.getName());
+        }
+        return tagName;
     }
 }

@@ -12,7 +12,7 @@
 </head>
 <body>
 <header class="row">
-  <div class="col-md-2 col-md-offset-2 row logo"><a href="/index">tuzhenyu</a></div>
+  <div class="col-md-2 col-md-offset-2 row logo"><a href="/index">liyang</a></div>
   <div class="col-md-5 col-md-offset-3 navigation">
     <ul class="row">
       <li class="col-md-2"><a id="home" href="/index"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
@@ -27,16 +27,14 @@
     <div class="wrapper row">
       <div class="col-md-2"></div>
       <div class="col-md-8 row articleShow">
-        <h1>[[${article.title}]]</h1>
+        <h1 th:text="${article.title}"></h1>
         <div class="articleFooter articleHead">
           <ul>
             <li><i class="fa fa-calendar fa-1x" aria-hidden="true"></i><span th:text="${#dates.format(article.createdDate, 'yyyy-MM-dd')}"></span></li>
             <li><i class="fa fa-eye" aria-hidden="true"></i><span>dsadas</span></li>
             <li><i class="fa fa-list fa-1x" aria-hidden="true"></i><span th:text="${article.category}"></span></li>
             <li><i class="fa fa-tags fa-1x" aria-hidden="true"></i>
-              #foreach($tag in $tags)
-              <span>$!{tag.name}</span>
-              #end
+              <span th:each="tag,lstat:${tagNames}" th:text="${tag}+'&nbsp&nbsp&nbsp'"></span>
             </li>
           </ul>
         </div>

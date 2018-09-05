@@ -16,6 +16,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by tuzhenyu on 17-7-20.
@@ -45,10 +47,13 @@ public class PassportInterceptor implements HandlerInterceptor {
         if (ticket!=null){
             LoginTicket loginTicket = userService.getLoginTicketByTicket(ticket);
             if (loginTicket==null||loginTicket.getExpired().before(new Date())||loginTicket.getStatus()!=0){
-                return true;
+                return true;     //if 里头表示登录过期，或者失效
             }
             User user = userService.getUserById(loginTicket.getUserId());
-            hostHolder.setUser(user);
+            HashMap<String,Object> map = new HashMap<String, Object>();
+            map.put("ticket",ticket);
+            map.put("user",user);
+            hostHolder.setUser(map);
         }
         return true;
     }

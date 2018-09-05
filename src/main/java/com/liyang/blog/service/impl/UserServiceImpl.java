@@ -131,10 +131,10 @@ public class UserServiceImpl implements UserService{
     public void loginout(String ticket) {
         LoginTicketExample example = new LoginTicketExample();
         example.createCriteria().andTicketEqualTo(ticket);
-        List<LoginTicket> loginTicketList = loginTicketMapper.selectByExample(example);
-        LoginTicket newTicket = loginTicketList.get(0);
+
+        LoginTicket newTicket = new LoginTicket();
         newTicket.setStatus(1);
-        loginTicketMapper.updateByExample(newTicket,example);
+        loginTicketMapper.updateByExampleSelective(newTicket,example);
     }
 
     @Override

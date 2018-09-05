@@ -23,7 +23,7 @@ public interface UserService {
     public String addLoginTicket(int userId);
 
     //更改登录状态
-    public void loginout(String ticket);
+    public void loginout(String userId);
 
     //根据 Ticket 查找
     public LoginTicket getLoginTicketByTicket(String ticket);

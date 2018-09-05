@@ -2,23 +2,26 @@ package com.liyang.blog.pojo;
 
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+
 /**
- * Created by tuzhenyu on 17-7-20.
+ * 为了在拦截器获取用户，并在controller使用
  * @author tuzhenyu
  */
 @Component
 public class HostHolder {
-    private static ThreadLocal<User> users = new ThreadLocal<>();
+    private static ThreadLocal<HashMap<String,Object>> users = new ThreadLocal<>();
 
-    public User getUser(){
+    public HashMap<String, Object> getUser(){
         return users.get();
     }
 
-    public void setUser(User user){
-        users.set(user);
+    public void setUser(HashMap<String,Object> map){
+        users.set(map);
     }
 
     public void clear(){
         users.remove();
     }
 }
+

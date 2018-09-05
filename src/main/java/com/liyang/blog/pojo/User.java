@@ -1,10 +1,18 @@
 package com.liyang.blog.pojo;
 
+
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Pattern;
+
 public class User {
     private Integer id;
 
+    @Length(max = 6,min = 3,message = "账号在3到6位之间")
     private String name;
 
+//    @Length(max = 6,min = 3,message = "密码在3到6位之间")
+    @Pattern(regexp = "\\d{3,6}",message = "密码只能是3~6位的数字哦")
     private String password;
 
     private String salt;

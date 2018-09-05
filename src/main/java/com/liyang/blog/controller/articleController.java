@@ -76,7 +76,7 @@ public class articleController {
         model.addAttribute("article",articleById);
         model.addAttribute("tagNames",tagNames);
 
-        User user = hostHolder.getUser();
+        User user = (User) hostHolder.getUser().get("user");
         if (user!=null){
             if("admin".equals(user.getRole())){//user非空，且是admin用户
                 model.addAttribute("create",1);

@@ -9,6 +9,7 @@ import com.liyang.blog.pojo.UserExample;
 import com.liyang.blog.service.UserService;
 import com.liyang.blog.util.JblogUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -55,6 +56,7 @@ public class UserServiceImpl implements UserService{
 
     //register注册
     @Override
+    @Transactional
     public Map register(String username, String password) {
         Map<Object, Object> map = new HashMap<>();
         Random random = new Random();
@@ -112,7 +114,8 @@ public class UserServiceImpl implements UserService{
         return map;
     }
 
-
+    @Override
+    @Transactional
     public String addLoginTicket(int userId){
         LoginTicket loginTicket = new LoginTicket();
         loginTicket.setUserId(userId);
@@ -128,6 +131,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public void loginout(String ticket) {
         LoginTicketExample example = new LoginTicketExample();
         example.createCriteria().andTicketEqualTo(ticket);

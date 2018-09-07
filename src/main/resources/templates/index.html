@@ -98,10 +98,9 @@
           </div>
           <div class="side tags">
             <div class="header"><i class="fa fa-tags" aria-hidden="true"></i><span>Tags</span></div>
-            <div id="tagCloud">
-              #foreach($tag in $tags)
-              <a href="/tag/$!{tag.id}?pageId=1" rel="$!{tag.count}">$!{tag.name}</a>
-              #end
+            <!--为了区别上面的tag，，这里用tag1-->
+            <div th:each="tag1,lstat:${tags}" id="tagCloud">
+              <a href="/tag/$!{tag.id}?pageId=1" th:ref="${tag1.count}" th:text="*{tag1.name}"></a>
             </div>
           </div>
           <div class="side hotArticles">

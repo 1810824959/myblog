@@ -20,4 +20,7 @@ public interface TagService {
 
     //在 article_tag 表中根据article_id 查询 tagID，，最终返回该article对应的tagname List
     public List<String> getTagByArticleId(int articleId);
+
+    // get 全部标签
+    public List<Tag> getAllTag();
 }

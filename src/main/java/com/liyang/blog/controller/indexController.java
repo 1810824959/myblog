@@ -3,10 +3,7 @@ package com.liyang.blog.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.liyang.blog.pojo.Article;
-import com.liyang.blog.pojo.HostHolder;
-import com.liyang.blog.pojo.User;
-import com.liyang.blog.pojo.Item;
+import com.liyang.blog.pojo.*;
 import com.liyang.blog.service.ArticleService;
 import com.liyang.blog.service.TagService;
 import com.liyang.blog.service.UserService;
@@ -60,6 +57,11 @@ public class indexController {
         }
 
         PageInfo<Article> pageInfo = new PageInfo<Article>(list);
+
+        //所有 tag 标签
+        List<Tag> allTag = tagService.getAllTag();
+        model.addAttribute("tags",allTag);
+
         //文章列表
 //        model.addAttribute("articles",list);
         model.addAttribute("wholeArticle",wholeArticle);

@@ -5,6 +5,7 @@ import com.liyang.blog.pojo.Article;
 import com.liyang.blog.pojo.ArticleExample;
 import com.liyang.blog.service.ArticleService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -15,6 +16,7 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMapper articleMapper;
 
     @Override
+    @Transactional
     public int addArticle(Article article) {
         articleMapper.insert(article);
         return article.getId();

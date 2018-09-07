@@ -8,6 +8,7 @@ import com.liyang.blog.pojo.Tag;
 import com.liyang.blog.pojo.TagExample;
 import com.liyang.blog.service.TagService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -22,12 +23,14 @@ public class TagServiceImpl implements TagService {
     private ArticleTagMapper articleTagMapper;
 
     @Override
+    @Transactional
     public int addTag(Tag tag) {
         tagMapper.insert(tag);
         return tag.getId();
     }
 
     @Override
+    @Transactional
     public void updateTag(String tag) {
         TagExample example = new TagExample();
         example.createCriteria().andNameEqualTo(tag);
@@ -41,6 +44,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    @Transactional
     public void addArticleTag(ArticleTag articleTag) {
         articleTagMapper.insert(articleTag);
     }
@@ -68,5 +72,12 @@ public class TagServiceImpl implements TagService {
             tagName.add(tag.getName());
         }
         return tagName;
+    }
+
+    @Override
+    public List<Tag> getAllTag() {
+        TagExample example = new TagExample();
+        List<Tag> tags = tagMapper.selectByExample(example);
+        return tags;
     }
 }

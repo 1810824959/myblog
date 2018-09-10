@@ -46,11 +46,6 @@ public class indexController {
         PageHelper.startPage(pageNumber,4);
         List<Item> wholeArticle = new ArrayList<>();
         List<Article> list = articleService.findAllArticle(); //article List
-//        ArrayList<Object> articleTags = new ArrayList<>();  //每个article一个元素，内含tagname List
-//        for (Article article:list){
-//            List<String> tagByArticleId = tagService.getTagByArticleId(article.getId());
-//            articleTags.add(tagByArticleId);
-//        }
 
         for (Article article:list){
             List<String> tagByArticleId = tagService.getTagByArticleId(article.getId());
@@ -68,6 +63,10 @@ public class indexController {
         //所有 tag 标签
         List<Tag> allTag = tagService.getAllTag();
         model.addAttribute("tags",allTag);
+
+        //排行榜
+        List<Article> rank = jedisService.getRank();
+        model.addAttribute("rank",rank);
 
         //文章列表
 //        model.addAttribute("articles",list);

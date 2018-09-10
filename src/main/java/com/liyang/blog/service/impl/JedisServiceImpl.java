@@ -1,13 +1,24 @@
 package com.liyang.blog.service.impl;
 
+import com.liyang.blog.pojo.Article;
+import com.liyang.blog.service.ArticleService;
 import com.liyang.blog.service.JedisService;
 import com.liyang.blog.util.jedisUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import redis.clients.jedis.Jedis;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 @Service
 public class JedisServiceImpl implements JedisService {
+
+    @Autowired
+    private ArticleService articleService;
+
     @Override
     public String getReadCount(String id) {
         Jedis jedis = jedisUtils.getJedis();
@@ -35,5 +46,18 @@ public class JedisServiceImpl implements JedisService {
         jedis_1.zincrby("hotArticles",1,uri);
 
         jedis_1.close();
+    }
+
+    @Override
+    public List<Article> getRank() {
+        Jedis jedis = jedisUtils.getJedis();
+        Set<String> hotArticles = jedis.zrevrange("hotArticles", 0, 6);
+        //返回的 list
+        List<Article> result = new ArrayList<Article>();
+        for(String articleId:hotArticles){
+            Article articleById = articleService.getArticleById(Integer.parseInt(articleId));
+            result.add(articleById);
+        }
+        return result;
     }
 }

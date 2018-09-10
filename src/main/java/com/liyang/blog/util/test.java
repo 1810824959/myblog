@@ -1,5 +1,6 @@
 package com.liyang.blog.util;
 
+import com.liyang.blog.pojo.Article;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
@@ -9,6 +10,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class test {
@@ -42,12 +45,16 @@ public class test {
 //	
 
 
-//	@Test
-//	public void testJedisByUtils(){
-//		Jedis jedis = jedisUtils.getJedis();
-////		Long hotArticles = jedis.z
-//		System.out.println(String.valueOf(hotArticles));
-//		jedis.close();
-//
-//	}
+	@Test
+	public void testJedisByUtils(){
+        Jedis jedis = jedisUtils.getJedis();
+        Set<String> hotArticles = jedis.zrevrange("hotArticles", 0, 6);
+        //返回的 list
+        List<Article> result = new ArrayList<Article>();
+        for(String articleId:hotArticles){
+            System.out.println(articleId);
+        }
+
+
+	}
 }

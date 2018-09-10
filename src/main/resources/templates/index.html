@@ -17,7 +17,11 @@
                 <div class="articleFooter">
                   <ul>
                     <li><i class="fa fa-calendar" aria-hidden="true"></i><span th:text="${#dates.format(article.get('article').createdDate, 'yyyy-MM-dd')}"></span></li>
-                    <li><i class="fa fa-eye" aria-hidden="true"></i><span>$!{vo.clickCount}</span></li>
+                    <li>
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                      <span th:if="${article.get('readCount')}==null">0</span>
+                      <span th:if="${article.get('readCount')}!=null" th:text="${article.get('readCount')}"></span>
+                    </li>
                     <li><i class="fa fa-list" aria-hidden="true"></i><span th:text="${article.get('article').category}"></span></li>
                     <li><i class="fa fa-tags" aria-hidden="true"></i>
                           <span th:each="tag,lstat:${article.get('tagName')}" th:text="${tag}+'&nbsp&nbsp&nbsp'">

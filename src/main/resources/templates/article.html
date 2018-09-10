@@ -31,7 +31,10 @@
         <div class="articleFooter articleHead">
           <ul>
             <li><i class="fa fa-calendar fa-1x" aria-hidden="true"></i><span th:text="${#dates.format(article.createdDate, 'yyyy-MM-dd')}"></span></li>
-            <li><i class="fa fa-eye" aria-hidden="true"></i><span>dsadas</span></li>
+            <li>
+              <i class="fa fa-eye" aria-hidden="true"></i>
+              <span th:if="${readCount}==null">0</span>
+              <span th:if="${readCount}!=null" th:text="${readCount}"></span>
             <li><i class="fa fa-list fa-1x" aria-hidden="true"></i><span th:text="${article.category}"></span></li>
             <li><i class="fa fa-tags fa-1x" aria-hidden="true"></i>
               <span th:each="tag,lstat:${tagNames}" th:text="${tag}+'&nbsp&nbsp&nbsp'"></span>
@@ -71,7 +74,7 @@
               <div class="comment">
                 <div class="commentTop row">
                   <div class="commentLeft col-md-1">
-                    <div class="photo"><a href=""><img src="$!{vo.user.headUrl}" alt=""></a></div>
+                    <div class="photo"><a href=""><img src="" alt=""></a></div>
                     <div class="comment-author">$!{vo.user.name}</div>
                   </div>
                   <div class="commentContent col-md-9"><span>$!{vo.comment.content}</span></div>

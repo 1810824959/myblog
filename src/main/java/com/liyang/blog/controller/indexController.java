@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.liyang.blog.pojo.*;
 import com.liyang.blog.service.ArticleService;
+import com.liyang.blog.service.JedisService;
 import com.liyang.blog.service.TagService;
 import com.liyang.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class indexController {
     private ArticleService articleService;
 
     @Autowired
+    private JedisService jedisService;
+
+    @Autowired
     private HostHolder hostHolder;
 
     @RequestMapping(path = {"/","/index"})
@@ -50,9 +54,12 @@ public class indexController {
 
         for (Article article:list){
             List<String> tagByArticleId = tagService.getTagByArticleId(article.getId());
+            String readCount = jedisService.getReadCount(String.valueOf(article.getId()));
+//            String readCount = jedisService.getReadCount(String.valueOf(article.getId()));
             Item item = new Item();
             item.set("article",article);
             item.set("tagName",tagByArticleId);
+            item.set("readCount",readCount);
             wholeArticle.add(item);
         }
 

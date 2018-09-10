@@ -1,6 +1,7 @@
 package com.liyang.blog.configuration;
 
 //import com.liyang.blog.interceptor.ArticleClickInterceptor;
+import com.liyang.blog.interceptor.ArticleClickInterceptor;
 import com.liyang.blog.interceptor.LoginRequestInterceptor;
 import com.liyang.blog.interceptor.PassportInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,14 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     @Autowired
     private LoginRequestInterceptor loginRequestInterceptor;
 
-//    @Autowired
-//    private ArticleClickInterceptor articleClickInterceptor;
+    @Autowired
+    private ArticleClickInterceptor articleClickInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(passportInterceptor);
         registry.addInterceptor(loginRequestInterceptor).addPathPatterns(new ArrayList<String>(){{add("/"); add("/index");}});
-//        registry.addInterceptor(articleClickInterceptor).addPathPatterns("/article/*");
+        registry.addInterceptor(articleClickInterceptor).addPathPatterns("/article/*");
         super.addInterceptors(registry);
     }
 }

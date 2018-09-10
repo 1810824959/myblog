@@ -2,6 +2,7 @@ package com.liyang.blog.controller;
 
 import com.liyang.blog.pojo.*;
 import com.liyang.blog.service.ArticleService;
+import com.liyang.blog.service.JedisService;
 import com.liyang.blog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,9 @@ public class articleController {
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private JedisService jedisService;
 
     @Autowired
     private HostHolder hostHolder;
@@ -73,8 +77,10 @@ public class articleController {
         Article articleById = articleService.getArticleById(id);
 
         List<String> tagNames = tagService.getTagByArticleId(articleById.getId());
+        String readCount = jedisService.getReadCount(String.valueOf(articleById.getId()));
         model.addAttribute("article",articleById);
         model.addAttribute("tagNames",tagNames);
+        model.addAttribute("readCount",readCount);
 
         User user = (User) hostHolder.getUser().get("user");
         if (user!=null){

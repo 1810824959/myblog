@@ -1,9 +1,8 @@
 package com.liyang.blog.controller;
 
 import com.liyang.blog.pojo.*;
-import com.liyang.blog.service.ArticleService;
-import com.liyang.blog.service.JedisService;
-import com.liyang.blog.service.TagService;
+import com.liyang.blog.service.*;
+import com.sun.javafx.util.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +26,16 @@ public class articleController {
     private JedisService jedisService;
 
     @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
     private HostHolder hostHolder;
+
+
+    private Logging logging = new Logging();
 
     @RequestMapping("/addArticle")
     public String addArticle(@RequestParam("title")String title, @RequestParam("category")String category,
@@ -82,6 +91,17 @@ public class articleController {
         model.addAttribute("tagNames",tagNames);
         model.addAttribute("readCount",readCount);
 
+        List<Comment> commentsListByArticleId = commentService.getCommentsListByArticleId(id);
+        List<Item> Comments = new ArrayList<>();
+        for(Comment comment:commentsListByArticleId){
+            Item item = new Item();
+            item.set("comment",comment);
+            item.set("username",userService.getUserNameById(comment.getUserId()));
+            Comments.add(item);
+        }
+        model.addAttribute("Comments",Comments);
+
+
         User user = (User) hostHolder.getUser().get("user");
         if (user!=null){
             if("admin".equals(user.getRole())){//user非空，且是admin用户
@@ -99,6 +119,8 @@ public class articleController {
 
     @RequestMapping("/addComment/{id}")
     public String addComment(@PathVariable int id,String content){
-        return null;
+        User user = (User) hostHolder.getUser().get("user");
+        commentService.addComment(content,user.getId(),id);
+        return String.format("redirect:/article/%s",id);
     }
 }

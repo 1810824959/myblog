@@ -19,6 +19,9 @@ public interface UserService {
     //按照 ID 查找用户
     public User getUserById(Integer id);
 
+    //根据 userId 返回 Username
+    public String getUserNameById(int id);
+
     //添加 LoginTicket
     public String addLoginTicket(int userId);
 

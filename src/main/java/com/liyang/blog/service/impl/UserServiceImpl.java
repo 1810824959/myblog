@@ -53,6 +53,20 @@ public class UserServiceImpl implements UserService{
         return null;
     }
 
+    @Override
+    public String getUserNameById(int id) {
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andIdEqualTo(id);
+
+        List<User> users = userMapper.selectByExample(example);
+        if (users != null && users.size()>0){
+            return users.get(0).getName();
+        }
+
+        return null;
+    }
+
 
     //register注册
     @Override

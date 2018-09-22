@@ -33,9 +33,26 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article getArticleById(int id) {
-        ArticleExample example = new ArticleExample();
-        example.createCriteria().andIdEqualTo(id);
+//        ArticleExample example = new ArticleExample();
+//        example.createCriteria().andIdEqualTo(id);
         Article article = articleMapper.selectByPrimaryKey(id);
         return article;
+    }
+
+    @Override
+    public void updateCommentCount(int done, int articleId) {
+        ArticleExample example = new ArticleExample();
+        example.createCriteria().andIdEqualTo(articleId);
+        List<Article> articles = articleMapper.selectByExample(example);
+        if (articles!=null){
+            Integer oldCount = articles.get(0).getCommentCount();
+            if (done==1){
+                articles.get(0).setCommentCount(oldCount+1);
+            }
+            if (done==0){
+                articles.get(0).setCommentCount(oldCount-1);
+            }
+            articleMapper.updateByExample(articles.get(0),example);
+        }
     }
 }

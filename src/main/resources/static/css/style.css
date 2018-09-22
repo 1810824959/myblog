@@ -207,7 +207,7 @@ header{
   /*height: 1183px;*/
   padding: 20px 30px;
   margin-bottom: 30px;
-  line-height: 1.6;
+  line-height: 1.2;
   font-size: 16px;
   background-color: #f8f8fd;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 30px rgba(10, 10, 0, 0.1) inset;
@@ -247,21 +247,18 @@ header{
 .commentLeft{
   margin-right: 15px;
 }
-.commentDate{
-  float: left;
-}
+
 .commentFooter{
   margin-bottom: 10px;
 }
 .commentDate{
-  float: left;
   font-size: 14px;
   color:#aaa;
   margin-top: 10px;
 }
 .answer{
    float: right;
-   margin-top: 10px;
+   margin-top: auto;
  }
 .editComment{
   margin-left: 30px;

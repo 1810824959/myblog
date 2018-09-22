@@ -58,7 +58,7 @@ public class articleController {
                 articleTag.setArticleId(articleId);
                 tagService.addArticleTag(articleTag);
             }else {
-                tagService.updateTag(t);
+                tagService.updateTag(t); //只是增加这个标签的数量
 
                 ArticleTag articleTag = new ArticleTag();
                 articleTag.setTagId(tag1.getId());
@@ -95,5 +95,10 @@ public class articleController {
             model.addAttribute("create",0);
         }
         return "article";
+    }
+
+    @RequestMapping("/addComment/{id}")
+    public String addComment(@PathVariable int id,String content){
+        return null;
     }
 }

@@ -1,5 +1,7 @@
 package com.liyang.blog.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.liyang.blog.pojo.*;
 import com.liyang.blog.service.*;
 import com.sun.javafx.util.Logging;
@@ -9,10 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class articleController {
@@ -82,7 +83,9 @@ public class articleController {
 
     @RequestMapping("/article/{id}")
     public String showArticle(@PathVariable("id") int id,
-                              Model model){
+                              Model model,
+                              @RequestParam(value = "pageNumber",required = false,defaultValue = "1")int pageNumber){
+
         Article articleById = articleService.getArticleById(id);
 
         List<String> tagNames = tagService.getTagByArticleId(articleById.getId());
@@ -91,7 +94,11 @@ public class articleController {
         model.addAttribute("tagNames",tagNames);
         model.addAttribute("readCount",readCount);
 
+        PageHelper.startPage(pageNumber,5);
         List<Comment> commentsListByArticleId = commentService.getCommentsListByArticleId(id);
+        PageInfo<Comment> pageInfo = new PageInfo<Comment>(commentsListByArticleId);
+        model.addAttribute("pageInfo",pageInfo);
+
         List<Item> Comments = new ArrayList<>();
         for(Comment comment:commentsListByArticleId){
             Item item = new Item();
@@ -120,7 +127,30 @@ public class articleController {
     @RequestMapping("/addComment/{id}")
     public String addComment(@PathVariable int id,String content){
         User user = (User) hostHolder.getUser().get("user");
-        commentService.addComment(content,user.getId(),id);
+        Comment comment = commentService.addComment(content, user.getId(), id);
+        Map<String,Object> CommentResult = new HashMap<String, Object>();
+        CommentResult.put("userId",comment.getUserId());
+        CommentResult.put("articleId",comment.getArticleId());
+        CommentResult.put("content",comment.getContent());
+        CommentResult.put("username",user.getName());
+        CommentResult.put("createDate",comment.getCreatedDate());
         return String.format("redirect:/article/%s",id);
     }
+
+    /**
+     * 下面这个是原本准备给ajax的，但是最后还是没用
+     */
+//    @RequestMapping("/addComment/{id}")
+//    @ResponseBody
+//    public Map addComment(@PathVariable int id,String content){
+//        User user = (User) hostHolder.getUser().get("user");
+//        Comment comment = commentService.addComment(content, user.getId(), id);
+//        Map<String,Object> CommentResult = new HashMap<String, Object>();
+//        CommentResult.put("userId",comment.getUserId());
+//        CommentResult.put("articleId",comment.getArticleId());
+//        CommentResult.put("content",comment.getContent());
+//        CommentResult.put("username",user.getName());
+//        CommentResult.put("createDate",comment.getCreatedDate());
+//        return CommentResult;
+//    }
 }

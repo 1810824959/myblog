@@ -22,7 +22,7 @@ public class CommentServiceImpl  implements CommentService{
     private ArticleService articleService;
 
     @Override
-    public void addComment(String content, int userId, int articleId) {
+    public Comment addComment(String content, int userId, int articleId) {
         //插入comment表
         Comment comment = new Comment();
         comment.setArticleId(articleId);
@@ -34,6 +34,7 @@ public class CommentServiceImpl  implements CommentService{
 
         //更新article 表的 commentCount
         articleService.updateCommentCount(1,articleId);
+        return comment;
     }
 
     @Override

@@ -9,6 +9,8 @@
   <link href="../css/bootstrap-tokenfield.css" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">
   <link href="../css/editormd.min.css" rel="stylesheet">
+  <script src="../js/jquery-1.11.1.min.js"></script>
+
 </head>
 <body>
 <header class="row">
@@ -67,9 +69,43 @@
         <hr>
         <div class="title"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i><span>已有[[${article.commentCount}]]条评论</span></div>
         <hr>
+
+
+        <!--用于分页跳转-->
+        <form id="form" th:action="@{'/article/'+${article.id}}">
+          <input type="hidden" id="page" name="pageNumber" value="1">
+        </form>
+        <!--传值，并跳转的js-->
+        <script th:inline="javascript">
+            function jump(pageNumber) {
+                if(pageNumber==1){
+                    $("#form").submit();
+                }
+                if(pageNumber==-1){
+                    document.getElementById("page").value=[[${pageInfo.prePage}]];
+                    $("#form").submit();
+                }
+                if(pageNumber==2){
+                    document.getElementById("page").value=[[${pageInfo.nextPage}]];
+                    document.getElementById("form").submit();
+                }
+                if(pageNumber==3){
+                    document.getElementById("page").value=[[${pageInfo.pages}]];
+                    document.getElementById("form").submit();
+
+                }
+                if(pageNumber==4){
+                    document.getElementById("page").value=[[${pageInfo.pageNum}]];
+                    $("#form").submit();
+                }
+
+            }
+        </script>
+
+
         <div class="commentList">
-          <ul>
             <div th:each="comment,lstat:${Comments}">
+              <ul>
             <li>
               <div class="comment">
                 <div class="commentTop row">
@@ -85,17 +121,58 @@
                   <div class="commentDate"><span>发布于<span th:text="${#dates.format(comment.get('comment').createdDate, 'yyyy-MM-dd HH:mm:ss')}"></span></span></div>
                   <div class="answer"><a href="">回复</a></div>
                   <hr style="height:1px;border:none;border-top:1px solid #000;" />
-
                 </div>
-
             </li>
-            <hr>
-
+              </ul>
+            </div>
         </div>
+
+        <!---->
+        <div class="paginationWapper">
+          <ul class="pagination">
+            <li>
+              <a href="javascript:jump(1)">&laquo;</a>
+            </li>
+            <li >
+              <a th:if="*{pageInfo.pageNum > 1}" href="javascript:jump(-1)">&lsaquo;</a>
+              <a th:if="*{pageInfo.pageNum == 1}" href="javascript:jump(4)">&lsaquo;</a>
+            </li>
+            <li>
+              <a href="" th:text="*{pageInfo.pageNum}"></a>
+            </li>
+            <li>
+              <a th:if="*{pageInfo.pageNum < pageInfo.pages}" href="javascript:jump(2)">&rsaquo;</a>
+              <a th:if="*{pageInfo.pageNum==pageInfo.pages}" href="javascript:jump(4)">&rsaquo;</a>
+            </li>
+            <li >
+              <a href="javascript:jump(3)">&raquo;</a>
+            </li>
+          </ul>
+        </div>
+        <!---->
         <div class="title"><i class="fa fa-edit fa-2x" aria-hidden="true"></i><span>添加新评论</span></div>
         <hr>
         <div class="commentWapper row">
           <div class="editComment col-md-11">
+            <!--<button  type="submit"  id="in">提交评论</button>-->
+            <!--<script>-->
+              <!--$("#in").click(function () {-->
+                  <!--var data = "content=你好";-->
+
+                  <!--$.ajax({-->
+                      <!--type:"post",-->
+                      <!--url:"/addComment/9",-->
+                      <!--data:data,-->
+                      <!--dataType:"json",-->
+                      <!--success:function (msg) {-->
+                          <!--$(".commentadd").append("<h1>wooooooooooooooo</h1>>")-->
+                      <!--},-->
+                      <!--error:function (xhr) {-->
+                          <!--console.log(xhr);-->
+                      <!--}-->
+                  <!--})-->
+              <!--})-->
+            <!--</script>-->
             <form th:action="@{'/addComment/'+${article.id}}"  method = "post">
               <textarea name="content" id="content" style="font-style: italic;width:100%;height: 115px"></textarea>
               <button  type="submit" class="btn btn-default">提交评论</button>

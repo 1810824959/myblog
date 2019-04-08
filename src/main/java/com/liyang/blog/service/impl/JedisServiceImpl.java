@@ -58,6 +58,7 @@ public class JedisServiceImpl implements JedisService {
             Article articleById = articleService.getArticleById(Integer.parseInt(articleId));
             result.add(articleById);
         }
+        jedis.close();
         return result;
     }
 }
